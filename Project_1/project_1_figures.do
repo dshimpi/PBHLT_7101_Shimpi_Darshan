@@ -1,6 +1,6 @@
 ** Name: Darshan Shimpi
 ** Title: Project 1 Figure Code
-** Date Last Modified: 2/26/2026
+** Date Last Modified: 3/2/2026
 *
 *
 *
@@ -99,18 +99,33 @@ thumbtipre~h |   0.6710   0.6853   0.6904   0.6935   0.6573   0.7338   0.6535   
 gen weight_lbs_to_kg = weightlbs / 2.205
 gen diff_self_actual_weight = weight_lbs_to_kg - weightkg
 
-violinplot diff_self_actual_weight , vertical fill ytitle("Difference Between Self-Reported and Actual Weight (kg)", margin(medium)) title({bf:Figure 4.2.1}, position(11))
+twoway (histogram weight_lbs_to_kg, color(gray%30) frequency) (histogram weightkg, color(black%30) frequency), legend(order(1 "Self-Reported" 2 "Actual" ) position(0) bplacement(neast) cols(1) size(*0.8)) name(weight_diff_hists, replace) xtitle("Weight (kg)") title({bf:A}, position(11))
+	   
+* Old plot of just the violin plot
+// violinplot diff_self_actual_weight , vertical fill ytitle("Difference Between Self-Reported and Actual Weight (kg)", margin(medium)) title({bf:Figure 4.2.1}, position(11)) name(weight_diff_vio)
+
+violinplot diff_self_actual_weight , fill xtitle("Difference in Weight Measurements (kg)",) name(weight_diff_vio, replace) title({bf:B}, position(11))
+
+gr combine weight_diff_hists weight_diff_vio,  title({bf:Figure 4.2.1}, position(11)) col(2) 
 
 * And do a comparison by gender
 violinplot  diff_self_actual_weight, vertical fill split(gender) key(fill) legend(subtitle("Gender") position(3) cols(1)) ytitle("Difference Between Self-Reported and Actual Weight (kg)", margin(medium)) title({bf:Figure 4.2.2},position(11)) xlabel(,nogrid) ylabel(-50(25)75,nogrid)
 
 * Compare the self reported height vs actual height
-* First we'll have to convert our self-reported weight from lbs to kgs
+* First we'll have to convert our self-reported height from in to cms
 gen height_in_to_cm = heightin * 2.54
 gen diff_self_actual_height = height_in_to_cm - stature
 
+* Make a two way histogram for the heights
+twoway (histogram height_in_to_cm, color(gray%30) frequency width(5) start(140)) (histogram stature, color(black%30) frequency width(5) start(140)), legend(order(1 "Self-Reported" 2 "Actual" ) position(0) bplacement(neast) cols(1) size(*0.8)) name(height_diff_hists, replace) xtitle("Height (cm)") title({bf:A}, position(11))
+	   
 
-violinplot diff_self_actual_height, vertical fill ytitle("Difference Between Self-Reported and Actual Height (cm)", margin(medium)) title({bf:Figure 4.2.3}, position(11))
+violinplot diff_self_actual_height , fill xtitle("Difference in Height Measurements (cm)",) name(height_diff_vio, replace) title({bf:B}, position(11))
+
+gr combine height_diff_hists height_diff_vio,  title({bf:Figure 4.2.3}, position(11)) col(2) 
+
+* Old plot of just the violin plot
+// violinplot diff_self_actual_height, vertical fill ytitle("Difference Between Self-Reported and Actual Height (cm)", margin(medium)) title({bf:Figure 4.2.3}, position(11))
 
 ********
 *  Compare the distributions of weight and BMI for each of the body types you created. Describe your findings in a paragraph with a figure and/or table. Focus on how well your body types describe differences in weight and obesity.

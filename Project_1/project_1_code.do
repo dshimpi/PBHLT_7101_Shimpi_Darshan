@@ -1,6 +1,6 @@
 ** Name: Darshan Shimpi
 ** Title: Project 1 Code
-** Date Last Modified: 2/26/2026
+** Date Last Modified: 3/2/2026
 *
 *
 *
@@ -353,7 +353,7 @@ replace body_category = 3 if gender == "Female" & (bmi_cat == 0 | bmi_cat == 1) 
 
 * Set big for the individuals meeting the criteria 
 replace body_category = 4 if gender == "Male" & (bmi_cat == 2 | bmi_cat == 3) & stature > 179 & (trochanterionheight / stature > 0.51)
-replace body_category = 3 if gender == "Female" & (bmi_cat == 2 | bmi_cat == 3) & stature < 166  & (trochanterionheight / stature > 0.51)
+replace body_category = 4 if gender == "Female" & (bmi_cat == 2 | bmi_cat == 3) & stature < 166  & (trochanterionheight / stature > 0.51)
 
 label define body_category_labels 0 "Average" 1 "Small" 2 "Stout" 3 "Lanky" 4 "Big"
 label values body_category body_category_labels
